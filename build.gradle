@@ -19,6 +19,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation("org.mongodb:mongodb-driver-sync:5.4.0")
     implementation("ch.qos.logback:logback-classic:1.5.18")
+    implementation("software.amazon.awssdk:s3:2.31.16")
+    implementation("software.amazon.awssdk:ssm:2.31.16")
 }
 
 test {

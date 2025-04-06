@@ -9,6 +9,12 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+//import software.amazon.awscdk.services.ssm.StringParameter;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ssm.SsmClient;
+import software.amazon.awssdk.services.ssm.model.GetParameterRequest;
+import software.amazon.awssdk.services.ssm.model.GetParameterResponse;
+import software.amazon.awssdk.services.ssm.model.SsmException;
 
 import java.lang.invoke.MethodHandles;
 
@@ -27,14 +33,13 @@ public class Application {
      *   pop: 15338,
      *   state: 'MA'
      * }
-     * @param args
      */
     public static void main(String[] args) {
         LOG.info("Application starting...");
         // Re-use this connection; it's thread safe
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
-                        .applyConnectionString(new ConnectionString("mongodb://admin:admin-password@ec2-52-54-111-193.compute-1.amazonaws.com:27017"))
+                        .applyConnectionString(new ConnectionString("mongodb://admin:admin-password@ec2-34-228-65-121.compute-1.amazonaws.com:27017"))
                         .build());
         LOG.info(mongoClient.getClusterDescription().toString());
 
@@ -47,5 +52,28 @@ public class Application {
         } else {
             LOG.info("No matching documents found.");
         }
+
+
+
+        Region region = Region.US_EAST_1;
+        SsmClient ssmClient = SsmClient.builder()
+                //.credentialsProvider()
+                //.withCredentials(new AWSCredentialsProviderChain())
+                .region(region)
+                .build();
+
+        try {
+            GetParameterRequest parameterRequest = GetParameterRequest.builder()
+                    .name("mongo-host")
+                    .build();
+
+            GetParameterResponse parameterResponse = ssmClient.getParameter(parameterRequest);
+            LOG.info("The parameter value is "+parameterResponse.parameter().value());
+
+        } catch (SsmException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+
     }
 }
