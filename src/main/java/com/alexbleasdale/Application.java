@@ -1,5 +1,6 @@
 package com.alexbleasdale;
 
+import com.alexbleasdale.util.AWSTools;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -36,10 +37,15 @@ public class Application {
      */
     public static void main(String[] args) {
         LOG.info("Application starting...");
+        String hostname = AWSTools.getMongoDBPublicDNSName();
+
+        // ec2-54-166-160-96.compute-1.amazonaws.com
+
         // Re-use this connection; it's thread safe
         MongoClient mongoClient = MongoClients.create(
                 MongoClientSettings.builder()
-                        .applyConnectionString(new ConnectionString("mongodb://admin:admin-password@ec2-34-228-65-121.compute-1.amazonaws.com:27017"))
+                        // TODO - fix this concatenation
+                        .applyConnectionString(new ConnectionString("mongodb://admin:admin-password@"+hostname+":27017"))
                         .build());
         LOG.info(mongoClient.getClusterDescription().toString());
 
