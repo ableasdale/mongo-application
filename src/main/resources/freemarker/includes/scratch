@@ -1,0 +1,47 @@
+ <script>
+    var editor2 = CodeMirror.fromTextArea(log, {
+      lineNumbers: true
+      //mode: "properties"
+      //mode: {name: "javascript", json: true}
+    });
+    editor2.setSize("100%", 650);
+ </script>
+ <!-- codemirror for properties files -->
+  <script>
+    var editor = CodeMirror.fromTextArea(textarea, {
+      lineNumbers: true,
+      mode: "properties"
+      //mode: {name: "javascript", json: true}
+    });
+    editor.setSize("100%", "100%");
+  </script>
+  <!-- DROPZONE -->
+  <script>
+    let dropzone = new Dropzone("#dropzone", { url: "/upload", maxFilesize: 9096,maxFilesize: 9096, parallelUploads: 1});
+    dropzone.on("success", file => { location.reload(); });
+  </script>
+  <script>
+    /* Popper stuff https://popper.js.org/docs/v2/tutorial/
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })  */
+
+    // Modal overlay with Spinner
+    //var modal = new bootstrap.Modal(document.getElementById("loading"), {});
+    const myModal = new bootstrap.Modal(document.getElementById('loading'), {}); // options
+    myModal.hide();
+
+    const modalTrigger = document.querySelectorAll('.dropdown-item');
+    modalTrigger.forEach(el => el.addEventListener('click', event => {
+      myModal.show();
+    }));
+
+   // Did not work
+   // var modalTrigger = [].slice.call(document.querySelectorAll('.dropdown-item'));
+   // modalTrigger.map(function (el) {addEventListener("click", console.log("click!"))});
+
+
+DefaultObjectWrapperBuilder owb = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_26);
+owb.setIterableSupport(true);
+cfg.setObjectWrapper(owb.build());

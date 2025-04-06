@@ -1,5 +1,7 @@
 package com.alexbleasdale;
 
+import com.alexbleasdale.providers.JerseyServer;
+import com.alexbleasdale.providers.MongoDBProvider;
 import com.alexbleasdale.util.AWSTools;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -37,20 +39,21 @@ public class Application {
      */
     public static void main(String[] args) {
         LOG.info("Application starting...");
-        String hostname = AWSTools.getMongoDBPublicDNSName();
 
-        // ec2-54-166-160-96.compute-1.amazonaws.com
 
-        // Re-use this connection; it's thread safe
-        MongoClient mongoClient = MongoClients.create(
-                MongoClientSettings.builder()
-                        // TODO - fix this concatenation
-                        .applyConnectionString(new ConnectionString("mongodb://admin:admin-password@"+hostname+":27017"))
-                        .build());
-        LOG.info(mongoClient.getClusterDescription().toString());
+       // LOG.info(mongoClient.getClusterDescription().toString());
 
-        MongoDatabase database = mongoClient.getDatabase("zips-db");
+
+
+        MongoDatabase database = MongoDBProvider.getInstance().getDatabase("zips-db");
         MongoCollection<Document> collection = database.getCollection("zips");
+
+        for (String s : MongoDBProvider.getInstance().listDatabaseNames()){
+            LOG.info("DB"+s);
+        }
+
+        //MongoDBProvider.getInstance()
+
 
         Document doc = collection.find(eq("state", "MN")).first();
         if (doc != null) {
@@ -81,5 +84,8 @@ public class Application {
             System.exit(1);
         }
 
+        final Thread t = new JerseyServer();
+        LOG.info("Starting JerseyServer");
+        t.start();
     }
 }

@@ -53,16 +53,7 @@ public class JerseyServer extends Thread {
             final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, getBaseResourceConfig());
             final StaticHttpHandler staticHttpHandler = new StaticHttpHandler(Consts.STATIC_RESOURCE_DIRECTORY_ROOT);
             server.getServerConfiguration().addHttpHandler(staticHttpHandler, Consts.ASSETS_DIRECTORY_PATH);
-            // Configure GZip Compression
-            // Test with: curl --compressed -v -o - http://localhost:9992/logs/workerTask
-            // curl -H "Accept-Encoding: gzip, deflate" http://localhost:9992/logs/workerTask
-            /*
-< HTTP/1.1 200 OK
-< Vary: Accept-Encoding
-< Content-Encoding: deflate
-< Content-Type: text/html;charset=UTF-8
-< Transfer-Encoding: chunked
-             */
+
             NetworkListener nl = server.getListener("grizzly");
             final CompressionConfig compressionConfig = nl.getCompressionConfig();
             compressionConfig.setCompressionMode(CompressionConfig.CompressionMode.ON); // the mode
