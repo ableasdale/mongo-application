@@ -6,21 +6,21 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongodb_app
+      app: mongodb-app
   template:
     metadata:
       labels:
-        app: mongodb_app
+        app: mongodb-app
     spec:
       containers:
-        - name: mongodb_app
+        - name: mongodb-app
           image: 418272789147.dkr.ecr.us-east-1.amazonaws.com/ableasdale_mongodb_app:latest
           ports:
             - containerPort: 9992
           resources:
             requests:
-              cpu: 100m
-              memory: 1024Mi
+              cpu: 1000m
+              memory: 1512Mi
             limits:
-              cpu: 100m
-              memory: 2048Mi
+              cpu: 1000m
+              memory: 3068Mi

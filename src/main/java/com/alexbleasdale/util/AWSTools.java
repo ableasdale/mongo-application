@@ -45,7 +45,10 @@ public class AWSTools {
 
     public static String getMongoDBPublicDNSName() {
         String name = "";
-        Ec2Client ec2 = Ec2Client.create();
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(Region.US_EAST_1)
+                .build();
+
         String nextToken = null;
         try {
             do {
