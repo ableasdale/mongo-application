@@ -1,6 +1,7 @@
-package com.alexbleasdale;
+package com.alexbleasdale.testing;
 
 import com.alexbleasdale.providers.MongoDBProvider;
+import com.alexbleasdale.util.Consts;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
@@ -19,8 +20,8 @@ public class FullTextSearchTest {
 
     public static void main(String[] args) {
 
-        MongoDatabase database = MongoDBProvider.getInstance().getDatabase("zips-db");
-        MongoCollection<Document> collection = database.getCollection("zips");
+        MongoDatabase database = MongoDBProvider.getInstance().getDatabase(Consts.MONGO_DB_DATABASE_NAME);
+        MongoCollection<Document> collection = database.getCollection(Consts.MONGO_DB_APPLICATION_COLLECTION_NAME);
         collection.createIndex(Indexes.ascending("city", "state"));
         collection.createIndex(Indexes.ascending("city"));
         //collection.createSearchIndex(Indexes.ascending("city", "state"));

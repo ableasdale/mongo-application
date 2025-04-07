@@ -1,14 +1,14 @@
 package com.alexbleasdale.resources;
 
 import com.alexbleasdale.providers.MongoDBProvider;
+import com.alexbleasdale.util.Consts;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.TextSearchOptions;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -28,8 +28,8 @@ public class State extends BaseResource {
     private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public List<Document> doSearch(String stateCode) {
-        MongoDatabase database = MongoDBProvider.getInstance().getDatabase("zips-db");
-        MongoCollection<Document> collection = database.getCollection("zips");
+        MongoDatabase database = MongoDBProvider.getInstance().getDatabase(Consts.MONGO_DB_DATABASE_NAME);
+        MongoCollection<Document> collection = database.getCollection(Consts.MONGO_DB_APPLICATION_COLLECTION_NAME);
         Bson filter = Filters.eq("state", stateCode);
         //collection.find(filter).sort(new Document("city", 1)).forEach(doc -> LOG.info(doc.toJson()));
 
@@ -48,7 +48,7 @@ public class State extends BaseResource {
         Map view = createModel();
         view.put("title", "The Mongo DB Application - State View");
         view.put("toast_heading", "Search by State");
-        view.put("toast_notification", "Viewing by State Code: "+stateCode);
+        view.put("toast_notification", "Viewing by State Code: " + stateCode);
         view.put("stateCode", stateCode);
         view.put("searchResults", doSearch(stateCode));
         return new Viewable("/state", view);

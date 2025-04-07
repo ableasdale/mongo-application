@@ -1,6 +1,7 @@
 package com.alexbleasdale.resources;
 
 import com.alexbleasdale.providers.MongoDBProvider;
+import com.alexbleasdale.util.Consts;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -29,8 +30,8 @@ public class Search extends BaseResource {
     List<Document> searchResults = null;
 
     public List<Document> doSearch(String inputTerm) {
-        MongoDatabase database = MongoDBProvider.getInstance().getDatabase("zips-db");
-        MongoCollection<Document> collection = database.getCollection("zips");
+        MongoDatabase database = MongoDBProvider.getInstance().getDatabase(Consts.MONGO_DB_DATABASE_NAME);
+        MongoCollection<Document> collection = database.getCollection(Consts.MONGO_DB_APPLICATION_COLLECTION_NAME);
         TextSearchOptions options = new TextSearchOptions().caseSensitive(false);
         Bson filter = Filters.text(inputTerm, options);
        // collection.find(filter).sort(new Document("city", 1)).forEach(doc -> LOG.info(doc.toJson()));

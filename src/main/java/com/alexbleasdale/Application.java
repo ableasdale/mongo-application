@@ -2,6 +2,7 @@ package com.alexbleasdale;
 
 import com.alexbleasdale.providers.JerseyServer;
 import com.alexbleasdale.providers.MongoDBProvider;
+import com.alexbleasdale.util.Consts;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Indexes;
@@ -24,8 +25,8 @@ public class Application {
         LOG.info("Application starting...");
 
         LOG.info("Creating the necessary indexes on startup...");
-        MongoDatabase database = MongoDBProvider.getInstance().getDatabase("zips-db");
-        MongoCollection<Document> collection = database.getCollection("zips");
+        MongoDatabase database = MongoDBProvider.getInstance().getDatabase(Consts.MONGO_DB_DATABASE_NAME);
+        MongoCollection<Document> collection = database.getCollection(Consts.MONGO_DB_APPLICATION_COLLECTION_NAME);
         collection.createIndex(Indexes.ascending("city", "state"));
         collection.createIndex(Indexes.ascending("city"));
         collection.createIndex(new Document("city", "text"));

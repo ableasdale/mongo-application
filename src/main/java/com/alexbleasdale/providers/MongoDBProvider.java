@@ -15,11 +15,10 @@ public class MongoDBProvider {
 
     private static class LazyHolder {
         static final MongoClient INSTANCE = MongoClients.create(
-
                 MongoClientSettings.builder()
                         // TODO - fix this yukky concatenation
-                .applyConnectionString(new ConnectionString("mongodb://admin:admin-password@"+AWSTools.getMongoDBPublicDNSName()+":27017"))
-                .build());
+                        .applyConnectionString(new ConnectionString("mongodb://admin:admin-password@" + AWSTools.getMongoDBPublicDNSName() + ":27017"))
+                        .build());
     }
 
     public static MongoClient getInstance() {

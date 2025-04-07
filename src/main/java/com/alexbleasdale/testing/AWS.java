@@ -1,11 +1,9 @@
-package com.alexbleasdale;
+package com.alexbleasdale.testing;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.*;
-
 
 import java.lang.invoke.MethodHandles;
 
