@@ -29,41 +29,18 @@ public class AWSTools {
                 .build();
 
         ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder()
-                .bucket("ableasdale-tf-mongo-backup")
+                .bucket(Consts.S3_BUCKET_NAME)
                 .build();
         ListObjectsV2Response listObjectsV2Response = s3Client.listObjectsV2(listObjectsV2Request);
-
         List<S3Object> contents = listObjectsV2Response.contents();
 
-       // LOG.info("Number of objects in the bucket: " + contents.stream().count());
-        contents.stream().forEach(System.out::println);
+        // LOG.info("Number of objects in the bucket: " + contents.stream().count());
+        //contents.stream().forEach(System.out::println);
         // contents.stream().collect(Collectors.toList());
         List<S3Object> list = contents.stream().toList();
-
         s3Client.close();
         return list;
-
-        /*
-        S3Client s3 = S3Client.create();
-
-        try {
-            ListObjectsV2Request listReq = ListObjectsV2Request.builder()
-                    .bucket("ableasdale-tf-mongo-backup")
-                    .maxKeys(1)
-                    .build();
-
-            s3.
-            ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
-            listRes.stream()
-                    .flatMap(r -> r.contents().stream())
-                    .forEach(content -> LOG.info(" Key: " + content.key() + " size = " + content.size()));
-
-        } catch (S3Exception e) {
-            LOG.error(e.awsErrorDetails().errorMessage());
-        } */
     }
-
-
 
 
     public static String getMongoDBPublicDNSName() {
@@ -71,7 +48,6 @@ public class AWSTools {
         Ec2Client ec2 = Ec2Client.create();
         String nextToken = null;
         try {
-
             do {
                 DescribeInstancesRequest request = DescribeInstancesRequest.builder().maxResults(6).nextToken(nextToken).build();
                 DescribeInstancesResponse response = ec2.describeInstances(request);
@@ -79,9 +55,11 @@ public class AWSTools {
                 for (Reservation reservation : response.reservations()) {
                     for (Instance instance : reservation.instances()) {
                         for (Tag t : instance.tags()) {
-                            if (t.key().equals("Name") && t.value().contains("MongoDB")) {
+                            if (t.key().equals("Name") && t.value().contains("MongoDB") && instance.state().nameAsString().equals("running")) {
                                 LOG.info("Found MDB instance: " + instance.publicDnsName());
+                                LOG.info("AWS Instance Id is: " + instance.instanceId());
                                 name = instance.publicDnsName();
+                                return name;
                             }
                         }
                     }
@@ -90,7 +68,7 @@ public class AWSTools {
             } while (nextToken != null);
 
         } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+            LOG.error("Ec2Exception: " + e.awsErrorDetails().errorMessage(), e);
         }
         ec2.close();
         return name;

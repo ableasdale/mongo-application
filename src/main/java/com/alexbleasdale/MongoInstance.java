@@ -26,8 +26,9 @@ public class MongoInstance {
 
                 for (Reservation reservation : response.reservations()) {
                     for (Instance instance : reservation.instances()) {
+                        LOG.debug("Instance Id is " + instance.instanceId()+ " "+ instance.state());
                         for (Tag t : instance.tags()) {
-                            if (t.key().equals("Name") && t.value().contains("MongoDB")) {
+                            if (t.key().equals("Name") && t.value().contains("MongoDB") && instance.state().nameAsString().equals("running")) {
                                 LOG.info("Found MDB instance: " + instance.publicDnsName());
                             }
                         }

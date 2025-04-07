@@ -1,5 +1,6 @@
 package com.alexbleasdale.resources;
 
+import com.alexbleasdale.util.AWSTools;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
@@ -56,7 +57,7 @@ public class BaseResource {
 
     protected Map<String, Object> createModel() {
         Map<String, Object> map = new HashMap<String, Object>();
-
+        map.put("mongo_dns_name", AWSTools.getMongoDBPublicDNSName());
         return map;
     }
 
@@ -65,6 +66,7 @@ public class BaseResource {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("name", name);
         map.put("title", "Dashboard and overview");
+        map.put("mongo_dns_name", AWSTools.getMongoDBPublicDNSName());
        // map.put("configs", LogDataProvider.getConfigs());
         return map;
     }

@@ -14,4 +14,7 @@ public class Consts {
     public static final String ASSETS_DIRECTORY_PATH = "/assets";
     public final static String FREEMARKER_TEMPLATE_PATH = "freemarker";
 
+    public static final String MONGO_DB_APPLICATION_COLLECTION_NAME = "zips";
+    public static final String MONGO_DB_DATABASE_NAME = "zips-db";
+    public static final String S3_BUCKET_NAME = "ableasdale-tf-mongo-backup";
 }
