@@ -16,15 +16,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SimpleAggregation {
+public class ComplexAggregation {
 
     private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
-
         String json = "[\n" +
-                "   { $group: { _id: { state: \"$state\", city: \"$city\" }, pop: { $sum: \"$pop\" } } },\n" +
-                "   { $group: { _id: \"$_id.state\", avgCityPop: { $avg: \"$pop\" } } }\n" +
+                "   { $group:\n" +
+                "      {\n" +
+                "        _id: { state: \"$state\", city: \"$city\" },\n" +
+                "        pop: { $sum: \"$pop\" }\n" +
+                "      }\n" +
+                "   },\n" +
+                "   { $sort: { pop: 1 } },\n" +
+                "   { $group:\n" +
+                "      {\n" +
+                "        _id : \"$_id.state\",\n" +
+                "        biggestCity:  { $last: \"$_id.city\" },\n" +
+                "        biggestPop:   { $last: \"$pop\" },\n" +
+                "        smallestCity: { $first: \"$_id.city\" },\n" +
+                "        smallestPop:  { $first: \"$pop\" }\n" +
+                "      }\n" +
+                "   },\n" +
+                "  { $project:\n" +
+                "    { _id: 0,\n" +
+                "      state: \"$_id\",\n" +
+                "      biggestCity:  { name: \"$biggestCity\",  pop: \"$biggestPop\" },\n" +
+                "      smallestCity: { name: \"$smallestCity\", pop: \"$smallestPop\" }\n" +
+                "    }\n" +
+                "  }\n" +
                 "]";
 
         List<BsonDocument> pipeline = new BsonArrayCodec().decode(new JsonReader(json), DecoderContext.builder().build())
@@ -34,9 +54,9 @@ public class SimpleAggregation {
         List<JsonObject> results = MongoDBProvider.getInstance().getDatabase(Consts.MONGO_DB_DATABASE_NAME).getCollection(Consts.MONGO_DB_APPLICATION_COLLECTION_NAME).withDocumentClass(JsonObject.class)
                 .aggregate(pipeline).into(new ArrayList<>());
 
-        for (JsonObject cur : results) {
+        for (JsonObject cur: results) {
             LOG.info(cur.getJson());
         }
-        LOG.info("Total results: " + results.size());
+        LOG.info("Total results: "+results.size());
     }
 }

@@ -56,8 +56,8 @@ public class AWSTools {
                     for (Instance instance : reservation.instances()) {
                         for (Tag t : instance.tags()) {
                             if (t.key().equals("Name") && t.value().contains("MongoDB") && instance.state().nameAsString().equals("running")) {
-                                LOG.info("Found MDB instance: " + instance.publicDnsName());
-                                LOG.info("AWS Instance Id is: " + instance.instanceId());
+                                LOG.debug("Found MDB instance: " + instance.publicDnsName());
+                                LOG.debug("AWS Instance Id is: " + instance.instanceId());
                                 name = instance.publicDnsName();
                                 return name;
                             }
