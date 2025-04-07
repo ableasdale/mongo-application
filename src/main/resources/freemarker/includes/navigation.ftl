@@ -11,9 +11,9 @@
             <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">View</a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Stats</a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/databases">MongoDB Databases</a></li>
+                <li><a class="dropdown-item" href="/avgcitypop">Average City Population (by State)</a></li>
                 <li><a class="dropdown-item" href="/logs/distributedHerder">Distributed Herder Activity</a></li>
 
             </ul>

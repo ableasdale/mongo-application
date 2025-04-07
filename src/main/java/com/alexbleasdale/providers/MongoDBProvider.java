@@ -3,13 +3,8 @@ package com.alexbleasdale.providers;
 import com.alexbleasdale.util.AWSTools;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.invoke.MethodHandles;
 
 public class MongoDBProvider {
 

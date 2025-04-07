@@ -40,6 +40,8 @@ public class Root extends BaseResource {
         view.put("collection_size", MongoDBTools.getCollectionSize());
         view.put("collection_name", Consts.MONGO_DB_APPLICATION_COLLECTION_NAME);
         view.put("database_name", Consts.MONGO_DB_DATABASE_NAME);
+        view.put("database_list", MongoDBTools.getDatabases());
+        // view.put("index_list", MongoDBTools.getConfiguredIndexes());
         return new Viewable("/dashboard", view);
     }
 }
