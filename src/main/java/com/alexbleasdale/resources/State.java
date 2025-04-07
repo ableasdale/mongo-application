@@ -44,7 +44,7 @@ public class State extends BaseResource {
     @Path("{stateCode}")
     @Produces(MediaType.TEXT_HTML)
     public Viewable getSearchResults(@PathParam("stateCode") String stateCode) {
-        LOG.info("State :: getDashboard() :: Rendering view");
+        LOG.debug("State :: getDashboard() :: Rendering view");
         Map view = createModel();
         view.put("title", "The Mongo DB Application - State View");
         view.put("toast_heading", "Search by State");
