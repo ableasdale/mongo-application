@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,6 +58,6 @@ public class ComplexAggregation {
         for (JsonObject cur: results) {
             LOG.info(cur.getJson());
         }
-        LOG.info("Total results: "+results.size());
+        LOG.info(MessageFormat.format("Total results: {0}", results.size()));
     }
 }

@@ -1,6 +1,5 @@
 package com.alexbleasdale.providers;
 
-import com.alexbleasdale.util.AWSTools;
 import com.alexbleasdale.util.Consts;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -18,5 +17,4 @@ public class MongoDBProvider {
     public static MongoClient getInstance() {
         return LazyHolder.INSTANCE;
     }
-
 }

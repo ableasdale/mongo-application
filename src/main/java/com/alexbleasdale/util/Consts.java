@@ -18,7 +18,7 @@ public class Consts {
     public final static String FREEMARKER_TEMPLATE_PATH = "freemarker";
 
     // TODO - forced to hard-code Public DNS due to multiple earlier issues (and time) - note that it's resolving the AWS Elastic IP - so if the machine is terminated and re-provisioned, we will be able to connect.
-    public static final String MONGODB_CONNECTION_STRING = "mongodb://admin:admin-password@ec2-13-219-113-233.compute-1.amazonaws.com:27017";
+    public static final String MONGODB_CONNECTION_STRING = "mongodb://database-reader:_1ID}1UhpQbPKr`R~}*y@ec2-13-219-113-233.compute-1.amazonaws.com:27017";
     public static final String MONGO_DB_APPLICATION_COLLECTION_NAME = "zips";
     public static final String MONGO_DB_DATABASE_NAME = "zips-db";
     public static final String S3_BUCKET_NAME = "ableasdale-tf-mongo-backup";
