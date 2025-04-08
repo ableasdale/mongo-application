@@ -5,8 +5,9 @@
       <li class="nav-item"><p class="nav-link px-2 text-muted">MDB Log: <strong>/var/log/mongodb/mongodb</strong></p></li>
       <li class="nav-item"><a href="https://github.com/ableasdale/mongo-application" class="nav-link px-2 text-muted">This Project on GitHub</a></li>
     </ul>
-     <p class="text-center text-body-secondary">Mongo host DNS Name: <strong>${mongo_dns_name}</strong></p>
-     <a href="https://www.mongodb.com/"><img class="d-block mx-auto" src="../assets/mongodb-icon.svg" alt="" width="60" height="60"></a>
+     <!-- p class="text-center text-body-secondary">Mongo host DNS Name: <strong>$mongo_dns_name</strong></p -->
+     <p><em>Feature disabled for demo...</em></p>
+     <a href="https://www.mongodb.com/"><img class="d-block mx-auto" src="https://ableasdale-tf-mongo-backup.s3.us-east-1.amazonaws.com/images/mongodb-icon.svg" alt="" width="60" height="60"></a>
   </footer>
 </div>
 <!- Javascript below -->

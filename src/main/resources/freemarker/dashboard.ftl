@@ -43,7 +43,7 @@
                             <div class="card-header">S3 Backups</div>
                             <div class="card-body">
                                 <h5 class="card-title">Your most recent backup</h5>
-                                <#if s3_data?size gt 0>
+                                <#if s3_data?? && s3_data?size gt 0>
                                     <p class="card-text">There are currently <strong>${s3_data?size}</strong> backups in S3.</p>
                                 <#assign lastItem = s3_data[s3_data?size - 1]>
                                 <ul>
@@ -52,7 +52,7 @@
                                     <li>File size (bytes): <strong>${lastItem.size()}</strong></li>
                                 </ul>
                                 <#else>
-                                    <p><strong>There are NO S3 Backups of your data!</strong></p>
+                                    <p><strong>There are NO S3 Backups of your data!</strong> <em>Note: the feature has been disabled for this demo!</em></p>
                                 </#if>
                                 <a href="https://s3.dualstack.us-east-1.amazonaws.com/ableasdale-tf-mongo-backup" class="btn btn-primary">View the S3 Bucket</a>
                             </div>

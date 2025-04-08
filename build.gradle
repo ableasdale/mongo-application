@@ -23,6 +23,9 @@ dependencies {
     implementation("software.amazon.awssdk:s3:2.31.16")
     implementation("software.amazon.awssdk:ssm:2.31.16")
     implementation("software.amazon.awssdk:ec2:2.31.16")
+    implementation("software.amazon.awssdk:sts:2.31.16")
+
+    implementation("io.kubernetes:client-java:23.0.0")
 
     implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.34'
     implementation group: 'org.glassfish.jersey.ext', name: 'jersey-mvc-freemarker', version: '3.1.10'
@@ -44,3 +47,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+//shadowJar {
+ //   include 'src/*'
+ //   include 'src/main/resources/assets/*'
+//}

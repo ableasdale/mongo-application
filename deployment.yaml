@@ -12,9 +12,11 @@ spec:
       labels:
         app: mongodb-app
     spec:
+      serviceAccountName: my-service-account
       containers:
         - name: mongodb-app
           image: 418272789147.dkr.ecr.us-east-1.amazonaws.com/ableasdale_mongodb_app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 9992
           resources:

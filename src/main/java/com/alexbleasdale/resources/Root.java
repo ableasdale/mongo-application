@@ -36,7 +36,7 @@ public class Root extends BaseResource {
         view.put("title", "The Mongo DB Application - Home");
         view.put("toast_heading", "Dashboard");
         view.put("toast_notification", "Configuration: Everything looks good");
-        view.put("s3_data", AWSTools.getS3Information());
+        // commented out for the demo view.put("s3_data", AWSTools.getS3Information());
         view.put("collection_size", MongoDBTools.getCollectionSize());
         view.put("collection_name", Consts.MONGO_DB_APPLICATION_COLLECTION_NAME);
         view.put("database_name", Consts.MONGO_DB_DATABASE_NAME);

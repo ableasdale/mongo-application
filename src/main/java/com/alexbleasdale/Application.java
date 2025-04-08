@@ -32,6 +32,7 @@ public class Application {
         collection.createIndex(new Document("city", "text"));
         collection.createIndex(new Document("city.$**", 1));
 
+        /*  TODO - Commenting out until I figure out the creds issue when running on EKS
         Region region = Region.US_EAST_1;
         SsmClient ssmClient = SsmClient.builder()
                 //.credentialsProvider()
@@ -50,7 +51,7 @@ public class Application {
         } catch (SsmException e) {
             System.err.println(e.getMessage());
             System.exit(1);
-        }
+        } */
 
         final Thread t = new JerseyServer();
         LOG.info("Starting JerseyServer");
